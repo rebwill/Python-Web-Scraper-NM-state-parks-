@@ -2,11 +2,18 @@ import json
 import requests
 from bs4 import BeautifulSoup
 import datetime
+import os
+from pathlib import Path
+env_path = Path('.') / '.env'
+from dotenv import load_dotenv
+load_dotenv(dotenv_path=env_path)
+
 
 print("Starting at " + str(datetime.datetime.now()))
 
 siteURL = "https://newmexicostateparks.reserveamerica.com/"
-webhookURL = "https://hooks.slack.com/services/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"
+webhook_key = os.getenv("WEBHOOK_KEY")
+webhookURL = "https://hooks.slack.com/services/" + webhook_key
 old_banner = "In an effort to reduce the spread of COVID-19 and as directed by the Governor, the Energy, Minerals and Natural Resources Department (EMNRD) announces that Day Use will be available to NM residents only. All other reservable facilities, including campsites, yurts and group shelters, at all NM State Parks will remain closed through at least February 26, 2021. All reservations through February 26, 2021 will be canceled and camping or facility fees refunded. Please see our FAQ page on State Parks limited openings for day use. If you have additional questions about State Parks closures, please call 505-476-3355."
 
 page = requests.get(siteURL)
